@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# This Script will lists all files in current directory
+
+for files in *; do
+    echo "$files" | cut -f 2- -d '-'
+done

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#This script will return a count of minutes and hours
+#Using a 'while' loop and other 'while' loop inside
+
+min=1
+hrs=0
+
+while [ $hrs -le 12 ]; do
+    echo "Hour: $hrs"
+    hrs=$((hrs+1))
+    while [ $min -le 59 ]; do
+        echo "$min"
+        min=$((min+1))
+    done
+    min=1
+done
