@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+# Using the 'while' loop and the 'if' conditional
+
+i=1
+
+while [ $i -le 10 ]; do
+    echo "Best School"
+    if ((i==9)); then
+        echo "hi"
+    fi
+    i=$((i+1))
+done

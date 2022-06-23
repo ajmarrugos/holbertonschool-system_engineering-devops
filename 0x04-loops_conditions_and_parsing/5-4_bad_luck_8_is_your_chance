@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#This script will check the number 'i' and display text in certain conditions
+#Using the 'while' loop and the 'if', 'elif' and 'else' conditionals
+
+i=0
+
+while [ $i -le 9 ]; do
+    i=$((i+1))
+    if ((i==4)); then
+        echo "bad luck"
+    elif ((i==8)); then
+        echo "good luck"
+    else
+        echo "Best School"
+    fi
+done
