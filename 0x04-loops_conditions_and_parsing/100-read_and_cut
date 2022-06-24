@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#This script will read a file and display parsed content of it 
+
+FILENAME="/etc/passwd"
+
+while IFS=: read -r lines; do
+    echo "$lines" | cut -f1,3,6 -d ":"
+done < $FILENAME

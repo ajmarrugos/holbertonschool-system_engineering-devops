@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#This script will read a file and concatenate the content with a story
+
+FILENAME="/etc/passwd"
+
+while IFS=: read -r username password userid groupid _comment homedir cmdshell; do
+    echo "The user $username is part of the $groupid gang, lives in $homedir and rides $cmdshell. $userid's place is protected by the passcode $password, more info about the user here: $username"
+done < $FILENAME
