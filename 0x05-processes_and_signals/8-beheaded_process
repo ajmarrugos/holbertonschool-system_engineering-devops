@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# This script will kill a specific running process
-
-kill -9 "$(pgrep -f highlander)"
