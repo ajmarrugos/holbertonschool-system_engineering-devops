@@ -2,4 +2,4 @@
 # This Script will show a list of current running processes
 # The list will show as User Oriented Format
 
-ps u
+ps -auxf
