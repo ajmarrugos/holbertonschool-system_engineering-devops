@@ -1,7 +1,10 @@
-# Hello world #
-You are seeing an Albert's repo.
+# System Engineering Dev-Ops #
 
-Feel free to review my work!
+This project is for documenting and reviewing all my learning process about the following Concepts:
 
-# Command functions #
-pwd = Prints the absoute path name of the current working directory
+- The Shell
+- Bash Scripts
+- User Permissions
+- Data Types
+- Loops, Conditionals, Parsing
+- Processes & Signals
