@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This script will kill all processes that have 'beyond' word
+# Using the pkill command
+
+pkill -f beyond
