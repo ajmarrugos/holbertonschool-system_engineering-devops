@@ -8,3 +8,5 @@ This project is for documenting and reviewing all my learning process about the 
 - Data Types
 - Loops, Conditionals, Parsing
 - Processes & Signals
+- Regular Expressions
+- Networking Basics
