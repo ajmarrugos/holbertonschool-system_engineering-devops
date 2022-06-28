@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This Script will change IP adress of localhost to 127.0.0.2
+
+ifconfig | grep 'inet ' | awk '{print $2}'
