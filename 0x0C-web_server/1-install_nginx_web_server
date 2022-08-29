@@ -3,6 +3,6 @@
 sudo apt-get -y update # Fetches the latest version of the package list from distro's software repository
 sudo apt-get -y upgrade # Downloads and installs the updates for each outdated package and dependency on the system
 sudo apt-get -y install nginx # Installs nginx package
-sudo ufw allow 'Nginx HTTP'
+sudo ufw allow 'Nginx HTTP' # Allows the network connection from 'Nginx HTTP'
 echo "Hello World" | sudo tee /var/www/html/index.nginx-debian.html # Creates an html file with "Hello World" inside the /var path 
 sudo service nginx start # Runs nginx
