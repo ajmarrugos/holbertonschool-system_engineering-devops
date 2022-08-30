@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Script that executes a sequence of the following commands
+
+# Updates and installs nginx
+apt-get update
+apt-get install -y nginx
+
+# Clean and recreate the root directories
+rm -r /var/www/example.com
+mkdir -p /var/www/example.com/html
+
+# Gives proper permissions to directories and change owners
+chown -R "$USER":"$USER" /var/www/example.com/html
+chmod -R 755 /var/www
+
+# Creates an index web page
+touch /var/www/example.com/html/index.html
+echo "Hello World" > /var/www/example.com/html/index.html
+
+# Creates an error web page
+touch "/var/www/example.com/html/error_page.html"
+echo "Ceci n'est pas une page" > /var/www/example.com/html/error_page.html
+
+# Copy the new_default file into available site directories
+cp new_default /etc/nginx/sites-available/default
+
+# Edits the config file
+sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
+
+# Check the syntax and restart the service
+nginx -t
+sudo /etc/init.d/nginx restart
