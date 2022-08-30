@@ -2,31 +2,29 @@
 # Script that executes a sequence of the following commands
 
 # Updates and installs nginx
-apt-get update
-apt-get install -y nginx
+sudo apt-get -y update
+sudo apt-get -y install nginx
 
 # Clean and recreate the root directories
-rm -r /var/www/example.com
-mkdir -p /var/www/example.com/html
+sudo rm -r /var/www/html
+sudo mkdir -p /var/www/html
 
 # Gives proper permissions to directories and change owners
-chown -R "$USER":"$USER" /var/www/example.com/html
-chmod -R 755 /var/www
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+# Allows the network connection from 'Nginx HTTP'
+sudo ufw allow 'Nginx HTTP'
 
 # Creates an index web page
-touch /var/www/example.com/html/index.html
-echo "Hello World" > /var/www/example.com/html/index.html
+sudo echo "Hello World" | sudo tee /var/www/html/index.nginx-debian.html
 
 # Creates an error web page
-touch "/var/www/example.com/html/error_page.html"
-echo "Ceci n'est pas une page" > /var/www/example.com/html/error_page.html
+sudo echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
 
-# Copy the new_default file into available site directories
-cp new_default /etc/nginx/sites-available/default
+# Listens to port 80 and redirects the traffic to and error page and a youtube video
+sudo sed -i '/listen 80 default_server;/a rewrite ^/redirect_me/ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sudo sed -i '/listen 80 default_server;/a error_page 404 /custom_404.html;location = /custom_404.html {root /usr/share/nginx/html; internal;}' /etc/nginx/sites-available/default
 
-# Edits the config file
-sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
-
-# Check the syntax and restart the service
-nginx -t
-sudo /etc/init.d/nginx restart
+# Restarts the nginx service
+sudo service nginx start

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Script that executes a sequence of the following commands
+
 sudo apt-get -y update # Fetches the latest version of the package list from distro's software repository
 sudo apt-get -y upgrade # Downloads and installs the updates for each outdated package and dependency on the system
 sudo apt-get -y install nginx # Installs nginx package

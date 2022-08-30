@@ -1,11 +1,24 @@
 #!/usr/bin/env bash
-# Double the number of webservers
+# Script that executes a sequence of the following commands
 
-sudo apt-get update
+# Updates and installs nginx
+sudo apt-get -y update
 sudo apt-get -y install nginx
+
+# Allows the network connection from 'Nginx HTTP'
 sudo ufw allow 'Nginx HTTP'
+
+# Creates an index web page
 sudo echo "Hello World" | sudo tee /var/www/html/index.nginx-debian.html
+
+
 sudo sed -i '/listen 80 default_server;/a rewrite ^/redirect_me/ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+
+# Creates and writes into a custom 404 error page
 sudo echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
+
+# Listens to port 80 and redirects the traffic to and error page and a youtube video
 sudo sed -i '/listen 80 default_server;/a error_page 404 /custom_404.html;location = /custom_404.html {root /usr/share/nginx/html; internal;}' /etc/nginx/sites-available/default
-sudo service nginx restart
+
+# Restarts the nginx service
+sudo service nginx start
