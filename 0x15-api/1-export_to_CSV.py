@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Export to CSV"""
+"""Python script to export fetched data from URL to CSV"""
 
 import csv
 import requests
