@@ -1,29 +1,24 @@
 #!/usr/bin/python3
 """Prints titles of first 10 hot posts listed"""
+import json
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=None, count=0):
-    """queries the Reddit API and returns a list containing
-    the titles of all hot articles for a given subreddit"""
-    url = "https://www.reddit.com/r/{}.json".format(subreddit)
+def top_ten(subreddit):
+    """queries the Reddit API and prints the titles of
+    the first 10 hot posts listed for a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     user_agent = "reddit_user"
 
-    if after:
-        url += "?after={}".format(after)
     headers = {"User-Agent": user_agent}
+
     request = requests.get(url, headers=headers, allow_redirects=False)
 
     if request.status_code != 200:
-        return None
-    data = request.json()["data"]
-    posts = data["children"]
-    for post in posts:
-        count += 1
-        hot_list.append(post["data"]["title"])
-
-    after = data["after"]
-    if after is not None:
-        return recurse(subreddit, hot_list, after, count)
+        print("None")
     else:
-        return hot_list
+        data = request.json()["data"]
+        post_list = data["children"]
+
+        for posts in post_list[0:10]:
+            print(posts["data"]["title"])
