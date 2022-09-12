@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Python Script that that queries Reddit API to return the number of subscribers"""
+"""Python Script that queries Reddit API to return the number of subscribers"""
 import json
 import requests
 
