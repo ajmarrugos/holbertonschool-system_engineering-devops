@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Script that shows where are your subdomains pointing to.
+
+show_dns_info ()
+{
+    domain="$1"
+    subdomain="$2"
+    dig "$subdomain.$domain" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$subdomain"
+}
+
+for subdomain in "www" "lb-01" "web-01" "web-02"
+do
+    if [ -z "$2" ] || [ "$2" == "$subdomain" ] ;
+    then
+        show_dns_info "$1" "$subdomain"
+    fi
+done
