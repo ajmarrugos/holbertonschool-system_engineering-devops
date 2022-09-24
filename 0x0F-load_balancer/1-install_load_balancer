@@ -11,7 +11,7 @@ frontend first_frontend
 backend web_servers
     balance roundrobin
     server web-01 34.203.35.182
-    server web-02 54.91.166.190
+    server web-02 54.91.166.190"
 
 echo "$proxy_line" >> /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
