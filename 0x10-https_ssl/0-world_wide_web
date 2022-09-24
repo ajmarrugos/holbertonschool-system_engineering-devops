@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
 # Script that shows where are your subdomains pointing to.
 
-show_dns_info ()
-{
-    domain="$1"
-    subdomain="$2"
-    dig "$subdomain.$domain" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$subdomain"
+function print_info() {
+    if [[ -z "$2" ]]; then #Verify if there's a 2nd parameter
+        SUB_DOMAIN_ARRAY=("www" "lb-01" "web-01" "web-02") #Defines global variable 
+    else
+        SUB_DOMAIN_ARRAY=("$2") #Retrieves global variable
+    fi
+
+    for subdomain in "${SUB_DOMAIN_ARRAY[@]}"; do #Digs data
+        dig "$subdomain.$1" | grep -A1 'ANSWER SECTION:' | sed '1d' | awk -v subd="$subdomain" '{printf "The subdomain %s is a %s record and points to %s\n", subd, $4, $5}'
+    done
 }
 
-for subdomain in "www" "lb-01" "web-01" "web-02"
-do
-    if [ -z "$2" ] || [ "$2" == "$subdomain" ] ;
-    then
-        show_dns_info "$1" "$subdomain"
-    fi
-done
+print_info "$1" "$2" #Prints the params
