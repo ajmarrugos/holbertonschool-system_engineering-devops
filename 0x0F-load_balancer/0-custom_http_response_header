@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Bash script to install nginx on server
+
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo rm /var/www/html/*
+sudo touch /var/www/html/index.html
+sudo chmod 666 /var/www/html/index.html
+echo "Hello World!" >> /var/www/html/index.html
+new_string="server_name _;\n\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=dQw4w9WgXcQ;\n\t}"
+sudo sed -i "0,/server_name _;/{s|server_name _;|$new_string|}" /etc/nginx/sites-available/default
+sudo touch /usr/share/nginx/html/error_page.html
+sudo chmod 666 /usr/share/nginx/html/error_page.html
+echo "Ceci n'est pas une page" >> /usr/share/nginx/html/error_page.html
+new_string="server_name _;\n\n\terror_page 404 /error_page.html;\n\n\tlocation = /error_page.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}"
+sudo sed -i "0,/server_name _;/{s|server_name _;|$new_string|}" /etc/nginx/sites-available/default
+add_header_string="include /etc/nginx/sites-enabled/*;\n\tadd_header X-Served-By \$hostname;\n"
+sudo sed -i "s|include /etc/nginx/sites-enabled/\*;|$add_header_string|" /etc/nginx/nginx.conf
+sudo service nginx restart
