@@ -34,15 +34,15 @@ defaults
         errorfile 504 /etc/haproxy/errors/504.http
 
 frontend www-http
-    bind :80
-    default_backend web_servers
+        bind :80
+        default_backend web_servers
 
 frontend www-https
-    bind *:443 ssl crt /etc/haproxy/certs/www.ajmarrugos.tech.pem
-    default_backend web_servers
+        bind *:443 ssl crt /etc/haproxy/certs/www.ajmarrugos.tech.pem
+        default_backend web_servers
 
 backend web_servers
-    balance roundrobin
-    redirect scheme https if !{ ssl_fc }
-    server web-01 34.203.35.182:80 check
-    server web-02 54.91.166.190:80 check
+        balance roundrobin
+        redirect scheme https if !{ ssl_fc }
+        server web-01 34.203.35.182:80 check
+        server web-02 54.91.166.190:80 check
